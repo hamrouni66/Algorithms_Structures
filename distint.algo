@@ -1,0 +1,161 @@
+//Problème 1
+
+ALGORITHM algorithm_name
+VAR
+    set1: ARRAY [1..n] OF INTEGER;
+    set2: ARRAY [1..n] OF INTEGER;
+    result: ARRAY [1..n] OF INTEGER;
+    i, j, k,n1,n2: INTEGER;
+    sum: INTEGER := 0;
+BEGIN
+ // input des deux tableaux
+    // Lecture des elements du premier tableau
+    write("donner  moi la taille du premier tableau:");
+    FOR i from 1 to n DO
+        write("donner les elements du premier tableau:");
+        read(set1[i]);
+    END_FOR
+    // Lecture des elements du deuxieme tableau
+    write("donner  moi la taille du deuxieme tableau:");
+    FOR j from 1 to n DO
+        write("donner les elements du deuxieme tableau:");
+        read(set2[j]);
+    END_FOR
+    // traitement pour trouver les elements distincts
+    // la premiere boucle pour parcourir le premier tableau
+    for i from 1 to (n1-1) DO
+       trouv:= false;
+         for j from 1 to (n2) DO
+             if set1[i] = set2[j] then
+                 trouv:= true;
+             end_if
+        end_for
+         if (trouv=false)  then
+         sum := sum + set1[i];
+         end_if
+    end_for
+       // la premiere boucle pour parcourir le deuxieme tableau
+    for i from 1 to (n2-1) DO
+       trouv:= false;
+         for j from 1 to (n1) DO
+             if set2[i] = set1[j] then
+                 trouv:= true;
+             end_if
+        end_for
+         if (trouv=false)  then
+         sum := sum + set2[i];
+         end_if
+    end_for
+// afficher le resultat
+    write("la somme des elements distincts est:", sum);
+END
+
+//Problème 2
+// algorithme pour calculer le produit scalaire de deux vecteurs et verifier s'ils sont orthogonaux avec procedures
+ALGORITHM Dot_Product_Calculation
+// declation des variables
+VAR
+    v1, v2 : array[1..100] of REAL
+    ps : REAL
+    n, dim, i, j : INTEGER
+// procedure pour calculer le produit scalaire
+PROCEDURE dot_product(v1, v2 : array of REAL, dim : INTEGER, VAR ps : REAL)
+// variables locales
+VAR
+    k : INTEGER
+BEGIN
+    ps ← 0
+    FOR k ← 1 TO dim DO
+        ps ← ps + v1[k] * v2[k]
+    ENDFOR
+ END PROCEDURE
+// corps principal de l'algorithme
+BEGIN
+// lire le nombre de paires de vecteurs
+    WRITE "Combien de paires de vecteurs souhaitez-vous traiter ? "
+    READ n
+// traiter chaque paire de vecteurs
+    FOR i ← 1 TO n DO
+        WRITE "=== Pair ", i, " ==="
+        WRITE "Entrez la dimension des vecteurs : "
+        READ dim
+
+        // lire le premier vecteur
+        FOR j ← 1 TO dim DO
+            WRITE "v1[", j, "] = "
+            READ v1[j]
+        ENDFOR
+
+        // lire le deuxieme vecteur
+        FOR j ← 1 TO dim DO
+            WRITE "v2[", j, "] = "
+            READ v2[j]
+        ENDFOR
+
+        // appeler la procedure pour calculer le produit scalaire
+        CALL dot_product(v1, v2, dim, ps)
+// afficher le resultat
+        WRITE "Produit scalaire d'une paire ", i, " = ", ps
+// verifier si les vecteurs sont orthogonaux
+        IF ps = 0 THEN
+            WRITE "→ Les vecteurs sont orthogonaux."
+        ELSE
+            WRITE "→ Les vecteurs ne sont pas orthogonaux."
+        ENDIF
+    ENDFOR
+END
+// fin de l'algorithme
+// algorithme pour calculer le produit scalaire de deux vecteurs et verifier s'ils sont orthogonaux avec fonctions
+ALGORITHM Dot_Product_Calculation
+VAR
+    v1, v2 : array[1..100] of REAL     
+    ps : REAL                          
+    n, dim, i, j : INTEGER              
+// ----- Fonction pour calculer le produit scalaire -----
+FUNCTION dot_product(v1, v2 : array of REAL, dim : INTEGER) : REAL
+VAR
+    s : REAL
+    k : INTEGER
+BEGIN
+    s ← 0                               
+    FOR k ← 1 TO dim DO
+    ENDFOR
+    RETURN s                            
+ENDFUNCTION
+
+// ----- Programme principal -----
+BEGIN
+    WRITE "Combien de paires de vecteurs souhaitez-vous traiter ?"
+    READ n                              
+
+    FOR i ← 1 TO n DO                   
+        WRITE "=== Pair ", i, " ==="
+        WRITE "Entrez la dimension des vecteurs : "
+        READ dim
+
+        // Lecture du premier vecteur
+        FOR j ← 1 TO dim DO
+            WRITE "v1[", j, "] = "
+            READ v1[j]
+        ENDFOR
+
+        // Lecture du deuxième vecteur
+        FOR j ← 1 TO dim DO
+            WRITE "v2[", j, "] = "
+            READ v2[j]
+        ENDFOR
+
+        // Appel de la fonction (paramètres passés par valeur)
+        ps ← dot_product(v1, v2, dim)
+
+        WRITE "Produit scalaire d'une paire ", i, " = ", ps
+
+        // Vérification de l’orthogonalité
+        IF ps = 0 THEN
+            WRITE "→ Les vecteurs sont orthogonaux."
+        ELSE
+            WRITE "→ Les vecteurs ne sont pas orthogonaux."
+        ENDIF
+    ENDFOR
+END
+// fin de l'algorithme
